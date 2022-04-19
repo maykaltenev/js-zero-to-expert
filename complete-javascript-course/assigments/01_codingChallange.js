@@ -18,7 +18,7 @@
 
 // let johnBMI = massJohn / (heightJohn ** 2); // 24.194608809993426
 // let markBMI = massMark / (heightMark ** 2); // 27.309968138370508
-// let markHigherBMI = true;
+// let markHigherBMI = johnBMI > markBMI;
 
 // --- Data 2
 let massMark = 95;
@@ -29,4 +29,5 @@ let heightJohn = 1.76;
 let johnBMI = massJohn / (heightJohn ** 2); //27.44059917355372
 let markBMI = massMark / (heightMark ** 2); //26.87867813490267
 
-let markHigherBMI = false; 
+let markHigherBMI = johnBMI < markBMI;
+console.log(markHigherBMI)
