@@ -26,8 +26,13 @@ let heightMark = 1.88;
 let massJohn = 85;
 let heightJohn = 1.76;
 
-let johnBMI = massJohn / (heightJohn ** 2); //27.44059917355372
-let markBMI = massMark / (heightMark ** 2); //26.87867813490267
+
+let markBMI = massMark / (heightMark ** 2);
+let johnBMI = massJohn / (heightJohn * heightJohn);
+
+console.log(johnBMI)
+console.log(markBMI)
+
 
 let markHigherBMI = johnBMI < markBMI;
 console.log(markHigherBMI)
