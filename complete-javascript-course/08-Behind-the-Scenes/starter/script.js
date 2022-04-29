@@ -28,17 +28,17 @@
 // const firstName = 'Jonas';
 // calcAge(1991);
 
-var me = 'Jonas';
-let job = 'teacher';
-const year = 1991;
+// var me = 'Jonas';
+// let job = 'teacher';
+// const year = 1991;
 
-console.log(addDecl(2, 3));
+// console.log(addDecl(2, 3));
 
-function addDecl(a, b) {
-    return a + b;
-}
-const addExpr = function (a, b) {
-    return a + b;
-}
+// function addDecl(a, b) {
+//     return a + b;
+// }
+// const addExpr = function (a, b) {
+//     return a + b;
+// }
 
-const addArrow = (a, b) => a + b;
+// const addArrow = (a, b) => a + b;
