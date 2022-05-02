@@ -221,3 +221,8 @@ const checkMiddleSeat = function (seat) {
 checkMiddleSeat('11B');
 checkMiddleSeat('23C');
 checkMiddleSeat('3E')
+
+// Fix capitalization in name
+const passenger = 'j0nAs' //Jonas
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect = passengerLower[0].toUpperCase();
