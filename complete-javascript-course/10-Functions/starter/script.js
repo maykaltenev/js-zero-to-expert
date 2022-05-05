@@ -163,13 +163,13 @@
 
 
 // Coding Challenge #1
-/* 
+/*
 Let's build a simple poll app!
-A poll has a question, an array of options from which people can choose, 
+A poll has a question, an array of options from which people can choose,
 and an array with the number of replies for each option. This data is stored in the starter object below.
 Here are your tasks:
 1. Create a method called 'registerNewAnswer' on the 'poll' object. The method does 2 things:
-  1.1. Display a prompt window for the user to input the number of the selected option. 
+  1.1. Display a prompt window for the user to input the number of the selected option.
   The prompt should look like this:
         What is your favourite programming language?
         0: JavaScript
@@ -179,7 +179,7 @@ Here are your tasks:
         (Write option number)
 1.2. Based on the input number, update the answers array. For example, if the option is 3, increase the value AT POSITION 3 of the array by 1. Make sure to check if the input is a number and if the number makes sense (e.g answer 52 wouldn't make sense, right?)
 2. Call this method whenever the user clicks the "Answer poll" button.
-3. Create a method 'displayResults' which displays the poll results. The method takes a string as an input (called 'type'), which can be either 'string' or 'array'. If type is 'array', simply display the results array as it is, using console.log(). This should be the default option. If type is 'string', display a string like "Poll results are 13, 2, 4, 1". 
+3. Create a method 'displayResults' which displays the poll results. The method takes a string as an input (called 'type'), which can be either 'string' or 'array'. If type is 'array', simply display the results array as it is, using console.log(). This should be the default option. If type is 'string', display a string like "Poll results are 13, 2, 4, 1".
 4. Run the 'displayResults' method at the end of each 'registerNewAnswer' method call.
 
 HINT: Use many of the tools you learned about in this and the last section 😉
@@ -192,28 +192,67 @@ BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
 GOOD LUCK 😀
 */
 
-const poll = {
-    question: 'What is your favourite programming language?',
-    options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
-    // This generates [0, 0, 0, 0]. More in the next section 😃
-    answers: new Array(4).fill(0),
-    registerNewAnswer() {
-        const answer = Number(prompt(`${this.question}\n${this.options.join('\n')}\n(Write option number)`))
-        typeof answer === 'number' && answer < this.answers.length && this.answers[answer]++;
+// const poll = {
+//     question: 'What is your favourite programming language?',
+//     options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+//     // This generates [0, 0, 0, 0]. More in the next section 😃
+//     answers: new Array(4).fill(0),
+//     registerNewAnswer() {
+//         const answer = Number(prompt(`${this.question}\n${this.options.join('\n')}\n(Write option number)`))
+//         typeof answer === 'number' && answer < this.answers.length && this.answers[answer]++;
 
-        this.displayResults();
-        this.displayResults('string');
-    },
-    displayResults(type = 'array') {
-        if (type === 'array') {
-            console.log(this.answers);
-        } else if (type === 'string') {
-            console.log(`Poll results are ${this.answers.join(', ')}`);
-        }
+//         this.displayResults();
+//         this.displayResults('string');
+//     },
+//     displayResults(type = 'array') {
+//         if (type === 'array') {
+//             console.log(this.answers);
+//         } else if (type === 'string') {
+//             console.log(`Poll results are ${this.answers.join(', ')}`);
+//         }
+//     }
+// }
+// document.querySelector('.poll').addEventListener('click', poll.registerNewAnswer.bind(poll));
+
+// poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
+// poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');
+// poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] });
+
+// Immediately Invoked Function
+// const runOnce = function () {
+//     console.log('This will never run again');
+// };
+// // IIFE => not used anymore because we can create scope with curly brackets;
+// runOnce();
+// (function () {
+//     console.log('This will never run again');
+//     const isPrivate = 23;
+// })();
+// (() => console.log('This will ALSO never run again'))();
+
+// {
+//     const isPrivate = 23;
+//     var notPrivate = 46;
+// }
+// console.log(notPrivate)
+
+// Closure
+// closure happens automatically in specific situations
+const secureBooking = function () {
+    let passengerCount = 0; // clear the stack
+    return function () { //return result
+        passengerCount++;
+        console.log(`${passengerCount} passengers`);
     }
 }
-document.querySelector('.poll').addEventListener('click', poll.registerNewAnswer.bind(poll));
+// the function environment from which booker was created does not exist anymore 
+//closure remembers the variables by the time functions was created
+const booker = secureBooking(); // the function does not exist
+// by execution the variable environment of this context is emptied
+booker() // any functions always has access to the variable environment of the execution context in which the function was created
+booker() // a function  alway has access to the variable environment in which it was created, even after a debt execution is gone
+booker() //thx to the closure a function does not lose connection to variables that existed at the functions birthplace
+// closure has priority over the scope chain
 
-poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
-poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');
-poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] });
+//A closure is the closed-over variable environment of the execution context in which a function was created, even after the execution context is gone
+//A closure gives a function access to its outer scope which preserves the scope chain thorough time
