@@ -238,21 +238,57 @@ GOOD LUCK 😀
 
 // Closure
 // closure happens automatically in specific situations
-const secureBooking = function () {
-    let passengerCount = 0; // clear the stack
-    return function () { //return result
-        passengerCount++;
-        console.log(`${passengerCount} passengers`);
-    }
-}
-// the function environment from which booker was created does not exist anymore 
-//closure remembers the variables by the time functions was created
-const booker = secureBooking(); // the function does not exist
-// by execution the variable environment of this context is emptied
-booker() // any functions always has access to the variable environment of the execution context in which the function was created
-booker() // a function  alway has access to the variable environment in which it was created, even after a debt execution is gone
-booker() //thx to the closure a function does not lose connection to variables that existed at the functions birthplace
-// closure has priority over the scope chain
+// const secureBooking = function () {
+//     let passengerCount = 0; // clear the stack
+//     return function () { //return result
+//         passengerCount++;
+//         console.log(`${passengerCount} passengers`);
+//     }
+// }
+// // the function environment from which booker was created does not exist anymore 
+// //closure remembers the variables by the time functions was created
+// const booker = secureBooking(); // the function does not exist
+// // by execution the variable environment of this context is emptied
+// booker() // any functions always has access to the variable environment of the execution context in which the function was created
+// booker() // a function  alway has access to the variable environment in which it was created, even after a debt execution is gone
+// booker() //thx to the closure a function does not lose connection to variables that existed at the functions birthplace
+// // closure has priority over the scope chain
 
 //A closure is the closed-over variable environment of the execution context in which a function was created, even after the execution context is gone
 //A closure gives a function access to its outer scope which preserves the scope chain thorough time
+
+let f;
+const g = function () {
+    const a = 23;
+    f = function () {
+        return (a * 2);
+    }
+}
+const h = function () {
+    const b = 777;
+    f = function () {
+        console.log(b * 2);
+    }
+}
+console.log(g())
+console.log(f())
+
+//Re-assigning f function
+console.log(h()) // after reassigning new closure the old closure is released 
+console.log(f())
+
+
+// Example 2
+const boardPassengers = function (n, wait) {
+    const perGroup = n / 3;
+
+    setTimeout(function () { }, 1000)
+    console.log(`Will start boarding in ${wait} seconds`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`, wait * 1000);
+
+    console.log(`Will start boarding in ${wait} seconds`);
+};
+
+boardPassengers(180, 3);
+
+console.log(`Will start boarding in ${wait} seconds`)
