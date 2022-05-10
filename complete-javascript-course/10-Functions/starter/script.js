@@ -73,7 +73,6 @@
 // let greetArr = greeting => name => `${greeting} ${name}`
 
 // console.log(greetArr('Hi')('Joans'))
-
 // const lufthansa = {
 //     airlane: 'Lufthansa',
 //     iataCode: 'LH',
@@ -309,11 +308,19 @@ GOOD LUCK 😀
 
 
 (function () {
-    const header = document.querySelector('h1');
-    header.style.color = 'red';
-    let blue = function () {
-        header.style.color = 'blue'
-    }
-    document.querySelector('body').addEventListener('click', blue)
-    console.dir(blue)
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+  let blue = function () {
+    header.style.color = 'blue'
+  }
+  document.querySelector('body').addEventListener('click', blue)
+  console.dir(blue)
 })();
+// forEach wont break the loop, for of can be brocken
+movements.forEach(function (movement, index, array) {
+  if (movement > 0) {
+    console.log(`You deposited ${movement}`);
+  } else {
+    console.log(`You withdrew ${Math.abs(movement)}`);
+  }
+});
