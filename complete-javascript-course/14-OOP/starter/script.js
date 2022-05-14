@@ -22,26 +22,34 @@ class Car {
         this.speed -= 5;
         console.log(`'${this.make}' is going with ${this.speed} km/h after breaking the speed! `)
     }
+    get speedUS() {
+        return this.speed / 1.6;
+    }
+    set speedUS(speed) {
+        this.speed = speed * 1.6;
+
+    }
 }
+
 let firstCar = new Car('Ferrari', 150);
 let secondCar = new Car('Porsche', 130);
 firstCar.accelerate()
 secondCar.accelerate()
 firstCar.break()
 secondCar.break()
+console.log(firstCar.speedUS())
+// const account = {
+//     owner: 'Jonas',
+//     movements: [200, 530, 120, 30],
 
-const account = {
-    owner: 'Jonas',
-    movements: [200, 530, 120, 30],
+//     get latest() {
+//         return this.movements.slice(-1).pop();
+//     },
+//     set latest(move) {
+//         this.movements.push(move);
+//     }
+// }
 
-    get latest() {
-        return this.movements.slice(-1).pop();
-    },
-    set latest(move) {
-        this.movements.push(move);
-    }
-}
-
-console.log(account.latest);
-account.latest = 50;
-console.log(account.latest);
+// console.log(account.latest);
+// account.latest = 50;
+// console.log(account.latest);
