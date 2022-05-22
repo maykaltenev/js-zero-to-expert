@@ -306,3 +306,30 @@ console.log(Number.isNaN(23 / 0));
 console.log(Number.isFinite(20));
 console.log(Number.isFinite('20'));
 console.log(Number.isFinite('20'));
+
+// Working with BigInt
+
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(2 ** 53 + 1)
+console.log(2 ** 53 + 2)
+console.log(2 ** 53 + 3)
+console.log(2 ** 53 + 4)
+
+console.log(3413948949813213123123)
+console.log(BigInt(849489))
+
+
+
+// Create a date
+
+console.log(now)
+
+const now = new Date();
+const day = now.getDate;
+const month = now.getMonth;
+const year = now.getYear;
+const hour = now.getHours;
+const min = now.getMinutes;
+
+labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`
