@@ -7,6 +7,7 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const section1 = document.querySelector('#section--1')
 const nav = document.querySelector('.nav');
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
@@ -65,6 +66,20 @@ const handleHover = function (e) {
   }
 }
 
-// Menu fade animation 
+
+//Passing "argument" into handler
 nav.addEventListener('mouseover', handleHover.bind(0.5))
 nav.addEventListener('mouseout', handleHover.bind(1))
+
+//sticky navigation
+const initialCoords = section1.getBoundingClientRect()
+console.log(initialCoords);
+window.addEventListener('scroll', function () {
+  console.log(window.scrollY)
+  if (window.scrollY > initialCoords.top) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+
+})
