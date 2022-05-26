@@ -324,6 +324,9 @@ console.log(BigInt(849489))
 // Create a date
 
 console.log(now)
+currentAccount = account1;
+updateUI(currentAccount)
+containerApp.style.opacity = 100;
 
 const now = new Date();
 const day = now.getDate;
