@@ -93,7 +93,37 @@ class App {
 
     }
     _newWorkout(e) {
+        const validInputs = (...inputs) => inputs.every(inp => Number.isFinite(inp))
         e.preventDefault();
+        // Get data from form
+        const type = inputType.value;
+        const distance = +inputDistance.value;
+        const duration = +inputDuration.value;
+
+        //check if data is valid
+
+        // if workout running, create running object
+
+        if (type === 'running') {
+            const cadence = +inputCadence.value;
+            if (!validInputs(distance, duration, cadence)) {
+                // !Number.isFinite(distance)
+                // || !Number.isFinite(duration)
+                // || !Number.isFinite(cadence))
+                return alert('Inputs have to be positive numbers');
+            }
+
+        }
+        if (type === 'cycling') {
+            const elevation = +inputElevation.value;
+            if (!validInputs(distance, duration, elevation)) {
+                // !Number.isFinite(distance)
+                // || !Number.isFinite(duration)
+                // || !Number.isFinite(elevation)
+
+                return alert('Inputs have to be positive numbers');
+            }
+        }
         inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value = ''
         const { lat, lng } = this.#mapEvent.latlng;
         L.marker([lat, lng])
