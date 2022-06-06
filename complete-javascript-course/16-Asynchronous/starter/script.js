@@ -21,44 +21,78 @@ const renderCountry = function (data, className = '') {
     countriesContainer.insertAdjacentHTML('beforeend', html)
     countriesContainer.style.opacity = 1;
 }
-//AJAX call country 1
-const getCountryDataAndNeighbor = function (country) {
-    const request = new XMLHttpRequest();
-    request.open('GET', `https://restcountries.com/v2/name/${country}`);
-    request.send();
-    console.log(request.responseText);
-    request.addEventListener('load', function () {
-        const [data] = JSON.parse(this.responseText);
-        console.log(data);
-        //Render country 1
-        renderCountry(data)
-        //Get neighbor country (2)
-        const [neighbour] = data.borders;
+// //AJAX call country 1 // // AJAX CALL: XMLHttpRequest
+// const getCountryDataAndNeighbor = function (country) {
+//     const request = new XMLHttpRequest();
+//     request.open('GET', `https://restcountries.com/v2/name/${country}`);
+//     request.send();
+//     console.log(request.responseText);
+//     request.addEventListener('load', function () {
+//         const [data] = JSON.parse(this.responseText);
+//         console.log(data);
+//         //Render country 1
+//         renderCountry(data)
+//         //Get neighbor country (2)
+//         const [neighbour] = data.borders;
 
-        if (!neighbour) return;
-        const request2 = new XMLHttpRequest();
-        request2.open('GET', `https://restcountries.com/v2/alpha/${neighbour}`);
-        request2.send();
+//         if (!neighbour) return;
+//         const request2 = new XMLHttpRequest();
+//         request2.open('GET', `https://restcountries.com/v2/alpha/${neighbour}`);
+//         request2.send();
 
-        request2.addEventListener('load', function () {
-            const data2 = JSON.parse(this.responseText);
-            console.log(data2);
-            renderCountry(data2, 'neighbour')
-        })
-    })
+//         request2.addEventListener('load', function () {
+//             const data2 = JSON.parse(this.responseText);
+//             console.log(data2);
+//             renderCountry(data2, 'neighbour')
+//         })
+//     })
+// }
+// // getCountryDataAndNeighbor('portugal')
+// getCountryDataAndNeighbor('usa')
+// // callback hell
+// setTimeout(() => {
+//     console.log('1 second passed');
+//     setTimeout(() => {
+//         console.log('2 second passed');
+//         setTimeout(() => {
+//             console.log('3 second passed');
+//             setTimeout(() => {
+//                 console.log('4 second passed');
+//             }, 1000);
+//         }, 1000);
+//     }, 1000);
+// }, 1000);
+
+// Promise: An object that is used as a placeholder for the future result of an asynchronous operation
+
+// Promise: A container of an asynchronously delivered value-- less formal => A container for a future value
+const request = fetch(`https://restcountries.com/v2/name/portugal`)
+console.log(request)
+
+//before the                Asynchronous
+// value is                 task
+// available                has finished
+// Pending ===ASYNC==TASK=> Settled => 1. fulfileld or 2. rejected   
+/// Consume Promuse => When we already have a promise e.g. promise returned from Fetch Api
+
+// const getCountryData = function (country) {
+//     fetch(`https://restcountries.com/v2/name/${country}`)
+//         .then(function (
+//             response) {
+//             console.log(response)
+//             return response.json()
+//         })
+//         .then(function (data) {
+//             console.log(data);
+// renderCountry(data[0])
+//         })
+// }
+
+const getCountryData = function (country) {
+    fetch(`https://restcountries.com/v2/name/${country}`)
+        .then(response => response.json())
+        .then(data => renderCountry(data[0]));
 }
-// getCountryDataAndNeighbor('portugal')
-getCountryDataAndNeighbor('usa')
-// callback hell
-setTimeout(() => {
-    console.log('1 second passed');
-    setTimeout(() => {
-        console.log('2 second passed');
-        setTimeout(() => {
-            console.log('3 second passed');
-            setTimeout(() => {
-                console.log('4 second passed');
-            }, 1000);
-        }, 1000);
-    }, 1000);
-}, 1000);
+
+
+getCountryData('portugal')
