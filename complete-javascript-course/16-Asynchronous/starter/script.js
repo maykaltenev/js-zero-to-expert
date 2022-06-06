@@ -91,8 +91,31 @@ console.log(request)
 const getCountryData = function (country) {
     fetch(`https://restcountries.com/v2/name/${country}`)
         .then(response => response.json())
-        .then(data => renderCountry(data[0]));
+        .then(data => {
+            renderCountry(data[0])
+            const neighbour = data[0].borders[4];
+            console.log(data)
+            if (!neighbour) {
+                return;
+            }
+            return (fetch(`https://restcountries.com/v2/alpha/${neighbour}`))
+        })
+        .then(response => response.json())
+        .then(data => {
+            renderCountry(data, 'neighbour')
+            const neighbour = data.borders[1];
+            console.log(data)
+            return (fetch(`https://restcountries.com/v2/alpha/${neighbour}`))
+        })
+        .then(response => response.json())
+        .then(data => {
+            renderCountry(data, 'neighbour')
+            const neighbour = data.borders[2];
+            return (fetch(`https://restcountries.com/v2/alpha/${neighbour}`))
+        })
+        .then(response => response.json())
+        .then(data => renderCountry(data, 'neighbour'))
 }
 
 
-getCountryData('portugal')
+getCountryData('germany')
