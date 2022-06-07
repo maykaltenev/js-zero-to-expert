@@ -99,42 +99,39 @@ const getJSON = function (url, errorMsg = 'Something went wrong') {
     })
 }
 const getCountryData = function (country) {
-    getJSON(`https://restcountries.com/v2/name/${country}`)
-        .then(response => {
-
-        })
+    getJSON(`https://restcountries.com/v2/name/${country}`, 'Country not found')
         .then(data => {
             renderCountry(data[0])
             const neighbour = data[0].borders[1];
             console.log(data)
             if (!neighbour) {
-                return;
+                throw new Error('No neighbour found!');
             }
-            return (fetch(`https://restcountries.com/v2/alpha/${neighbour}`))
+            return (getJSON(`https://restcountries.com/v2/alpha/${neighbour}`, 'Country not found!'))
         })
         .then(response => response.json())
         .then(data => {
             renderCountry(data, 'neighbour')
             const neighbour = data.borders[2];
             console.log(data)
-            return (fetch(`https://restcountries.com/v2/alpha/${neighbour}`))
+            return (getJSON(`https://restcountries.com/v2/alpha/${neighbour}`, 'Country not found!'))
         })
         .then(response => response.json())
         .then(data => {
             renderCountry(data, 'neighbour')
             const neighbour = data.borders[0];
-            return (fetch(`https://restcountries.com/v2/alpha/${neighbour}`))
+            return (getJSON(`https://restcountries.com/v2/alpha/${neighbour}`, 'Country not found!'))
         })
         .then(response => response.json())
         .then(data => renderCountry(data, 'neighbour'))
         .catch(err => {
             console.error(`${err}`);
-            renderError(`Something went wrong ${err.message}`)
+            renderError(`Something went wrong ${err.message}. Try again`)
         })
         .finally(() => {
             countriesContainer.style.opacity = 1;
         })
 }
 btn.addEventListener('click', function () {
-    getCountryData('Bulgaria')
+    getCountryData('australia')
 })
