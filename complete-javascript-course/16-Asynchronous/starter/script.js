@@ -102,22 +102,22 @@ const getJSON = function (url, errorMsg = 'Something went wrong') {
 const getCountryData = function (country) {
   getJSON(`https://restcountries.com/v2/name/${country}`, 'Country not found')
     .then(data => {
-      renderCountry(data[0]);
+      renderCountry(data[0])
       const neighbour = data[0].borders[1];
-      // const neighbour = 'dada'
-      if (!neighbour) return
+      if (!neighbour) throw new Error('No neighbour found!')
+
       return getJSON(`https://restcountries.com/v2/alpha/${neighbour}`)
     })
     .then(data => {
       renderCountry(data, 'neighbour')
-      const neighbour = data.borders[0];
+      const neighbour = data.borders[2];
       if (!neighbour) return
       return getJSON(`https://restcountries.com/v2/alpha/${neighbour}`)
     })
     .then(data => renderCountry(data, 'neighbour'))
     .catch(err => {
       console.error(`${err} not working`)
-      renderError(`Something went wrong ${err.message}`)
+      renderError(`Something went wrong ${err.message}. Try again!`)
     })
     .finally(() => {
       countriesContainer.style.opacity = 1;
@@ -159,7 +159,7 @@ const getCountryData = function (country) {
 //         })
 // }
 btn.addEventListener('click', function () {
-  getCountryData('germany')
+  getCountryData('australia')
 
 })
 // Fetch reject only when there is no internet
