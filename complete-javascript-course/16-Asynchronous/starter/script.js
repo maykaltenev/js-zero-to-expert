@@ -4,10 +4,10 @@ const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
-// const renderError = function (msg) {
-//     countriesContainer.insertAdjacentText('beforeend', msg)
-//     countriesContainer.style.opacity = 1;
-// }
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg)
+  countriesContainer.style.opacity = 1;
+}
 const renderCountry = function (data, className = '') {
   const html = `
     <article class="country  ${className}">
@@ -91,9 +91,11 @@ console.log(request)
 //             renderCountry(data[0])
 //         })
 // }
+
 const getCountryData = function (country) {
   fetch(`https://restcountries.com/v2/name/${country}`)
     .then(response => response.json())
+
     .then(data => {
       renderCountry(data[0]);
       const neighbour = data[0].borders[1];
@@ -109,6 +111,13 @@ const getCountryData = function (country) {
     })
     .then(response => response.json())
     .then(data => renderCountry(data, 'neighbour'))
+    .catch(err => {
+      console.error(`${err} not working`)
+      renderError(`Something went wrong ${err.message}`)
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    })
 }
 
 // const getJSON = function (url, errorMsg = 'Something went wrong') {
@@ -152,7 +161,9 @@ const getCountryData = function (country) {
 //             countriesContainer.style.opacity = 1;
 //         })
 // }
-// btn.addEventListener('click', function () {
-//     getCountryData('germany')
-// })
-getCountryData('germany')
+btn.addEventListener('click', function () {
+  getCountryData('germany')
+
+})
+// Fetch reject only when there is no internet
+// getCountryData('fasfas')
