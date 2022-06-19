@@ -237,24 +237,74 @@ GOOD LUCK 😀
 
 // !Building a Simple Promise 259
 
-const lotteryPromise = new Promise(function (resolve, reject) {
-  console.log('Lotter draw is happening 🧞‍♂️')
-  setTimeout(function () {
-    if (Math.random() >= 0.5) {
-      resolve('You WIN 💰');
-    } else {
-      reject('You lost your money 💩');
-    }
-  }, 2000)
-})
+// const lotteryPromise = new Promise(function (resolve, reject) {
+//   console.log('Lotter draw is happening 🧞‍♂️')
+//   setTimeout(function () {
+//     if (Math.random() >= 0.5) {
+//       resolve('You WIN 💰');
+//     } else {
+//       reject('You lost your money 💩');
+//     }
+//   }, 2000)
+// })
 
-lotteryPromise
-  .then(res => console.log(res))
-  .catch(err => console.error(err))
+// lotteryPromise
+//   .then(res => console.log(res))
+//   .catch(err => console.error(err))
 
-//! Promising setTimout
-const wait = function (seconds) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, seconds * 1000);
+// //! Promising setTimout
+// const wait = function (seconds) {
+//   return new Promise(function (resolve) {
+//     setTimeout(resolve, seconds * 1000);
+//   });
+// };
+// wait(2)
+//   .then(() => {
+//     console.log('I waited for 2 seconds');
+//     return wait(1);
+//   })
+//   .then(() => console.log('I waited for 1 second'));
+
+// // will resolve immediately
+// Promise.resolve('abc').then(x => console.log(x));
+// Promise.reject(new Error('Problem!')).catch(x => console.error(x));
+
+//! Promisify the Geolocation API
+
+// navigator.geolocation.getCurrentPosition(position =>
+//   console.log(position), err => position)
+// console.log(console.error(err)
+// );
+// console.log('Getting position')
+const getCurrentPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 };
+// getCurrentPosition().then(pos => console.log(pos))
+
+//**  getPosition with geocode and render the info about the country from restcountry API
+whereAmI = function () {
+  getCurrentPosition().then(pos => {
+    const { latitude: lat, longitude: lng } = pos.coords;
+    return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`)
+  })
+    .then(res => {
+      if (!res.ok) throw new Error(`Problem with geocoding ${res.status}`);
+      return res.json();
+    })
+    .then(data => {
+      console.log(data);
+      console.log(`You are in ${data.city}, ${data.country}`);
+
+      return fetch(`https://restcountries.com/v2/name/${data.country}`);
+    })
+    .then(res => {
+      if (!res.ok) throw new Error(`Country not found (${res.status})`);
+
+      return res.json();
+    })
+    .then(data => renderCountry(data[0]))
+    .catch(err => console.error(`${err.message} 💥`));
+};
+btn.addEventListener('click', whereAmI)
