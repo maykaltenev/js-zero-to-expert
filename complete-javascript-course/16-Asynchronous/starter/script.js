@@ -91,25 +91,29 @@ console.log(request)
 //             renderCountry(data[0])
 //         })
 // }
-
+const getJSON = function (url, errorMsg = 'Something went wrong') {
+  return fetch(url).then(response => {
+    if (!response.ok) {
+      throw new Error(`${errorMsg} ${response.status}`)
+    }
+    return response.json()
+  })
+}
 const getCountryData = function (country) {
-  fetch(`https://restcountries.com/v2/name/${country}`)
-    .then(response => response.json())
-
+  getJSON(`https://restcountries.com/v2/name/${country}`, 'Country not found')
     .then(data => {
       renderCountry(data[0]);
       const neighbour = data[0].borders[1];
+      // const neighbour = 'dada'
       if (!neighbour) return
-      return fetch(`https://restcountries.com/v2/alpha/${neighbour}`)
+      return getJSON(`https://restcountries.com/v2/alpha/${neighbour}`)
     })
-    .then(response => response.json())
     .then(data => {
       renderCountry(data, 'neighbour')
-      const neighbour = data.borders[3];
+      const neighbour = data.borders[0];
       if (!neighbour) return
-      return fetch(`https://restcountries.com/v2/alpha/${neighbour}`)
+      return getJSON(`https://restcountries.com/v2/alpha/${neighbour}`)
     })
-    .then(response => response.json())
     .then(data => renderCountry(data, 'neighbour'))
     .catch(err => {
       console.error(`${err} not working`)
@@ -120,14 +124,7 @@ const getCountryData = function (country) {
     })
 }
 
-// const getJSON = function (url, errorMsg = 'Something went wrong') {
-//     return fetch(url).then(response => {
-//         if (!response.ok) {
-//             throw new Error(`${errorMsg} ${response.status}`)
-//         }
-//         return response.json()
-//     })
-// }
+
 // const getCountryData = function (country) {
 //     getJSON(`https://restcountries.com/v2/name/${country}`, 'Country not found')
 //         .then(data => {
