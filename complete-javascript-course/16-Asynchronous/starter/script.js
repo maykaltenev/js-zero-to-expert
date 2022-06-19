@@ -9,7 +9,7 @@ const countriesContainer = document.querySelector('.countries');
 //     countriesContainer.style.opacity = 1;
 // }
 const renderCountry = function (data, className = '') {
-    const html = `
+  const html = `
     <article class="country  ${className}">
     <img class="country__img" src="${data.flag}" />
     <div class="country__data">
@@ -21,8 +21,8 @@ const renderCountry = function (data, className = '') {
     </div >
   </article >
     `;
-    countriesContainer.insertAdjacentHTML('beforeend', html)
-    countriesContainer.style.opacity = 1;
+  countriesContainer.insertAdjacentHTML('beforeend', html)
+  countriesContainer.style.opacity = 1;
 }
 // //AJAX call country 1 // // AJAX CALL: XMLHttpRequest
 // const getCountryDataAndNeighbor = function (country) {
@@ -79,18 +79,38 @@ console.log(request)
 // Pending ===ASYNC==TASK=> Settled => 1. fulfileld or 2. rejected   
 /// Consume Promuse => When we already have a promise e.g. promise returned from Fetch Api
 
+// const getCountryData = function (country) {
+//     fetch(`https://restcountries.com/v2/name/${country}`)
+//         .then(function (
+//             response) {
+//             console.log(response)
+//             return response.json()
+//         })
+//         .then(function (data) {
+//             console.log(data);
+//             renderCountry(data[0])
+//         })
+// }
 const getCountryData = function (country) {
-    fetch(`https://restcountries.com/v2/name/${country}`)
-        .then(function (
-            response) {
-            console.log(response)
-            return response.json()
-        })
-        .then(function (data) {
-            console.log(data);
-            renderCountry(data[0])
-        })
+  fetch(`https://restcountries.com/v2/name/${country}`)
+    .then(response => response.json())
+    .then(data => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders[1];
+      if (!neighbour) return
+      return fetch(`https://restcountries.com/v2/alpha/${neighbour}`)
+    })
+    .then(response => response.json())
+    .then(data => {
+      renderCountry(data, 'neighbour')
+      const neighbour = data.borders[3];
+      if (!neighbour) return
+      return fetch(`https://restcountries.com/v2/alpha/${neighbour}`)
+    })
+    .then(response => response.json())
+    .then(data => renderCountry(data, 'neighbour'))
 }
+
 // const getJSON = function (url, errorMsg = 'Something went wrong') {
 //     return fetch(url).then(response => {
 //         if (!response.ok) {
@@ -135,3 +155,4 @@ const getCountryData = function (country) {
 // btn.addEventListener('click', function () {
 //     getCountryData('germany')
 // })
+getCountryData('germany')
