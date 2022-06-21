@@ -22,3 +22,21 @@ add('tea', 3)
 
 
 console.log(cart)
+
+// console.log('Starting fetching')
+// const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+// const data = await res.json()
+// console.log(data);
+// console.log('Something')
+
+const getLastPost = async function () {
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const data = await res.json()
+    console.log(data);
+    return { title: data.at(-1).title, text: data.at(-1) }
+}
+const lastPost = getLastPost()
+console.log(lastPost)
+
+const lastPost2 = await getLastPost();
+console.log(lastPost2)
