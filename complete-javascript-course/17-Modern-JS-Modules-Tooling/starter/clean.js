@@ -15,18 +15,14 @@ const spendingLimits = Object.freeze({
   matilda: 100,
 });
 const getLimit = user => spendingLimits?.[user] ?? 0;
-const addExpense = function (value, description, user = 'jonas') {
-  user = user.toLowerCase();
-  // const limit = spendingLimits[user] ? spendingLimits[user] : 0;
-
-  //function that mutated an object is impure function
-  if (value <= getLimit(user)) {
-    budget.push({ value: -value, description, user });
-  }
+const addExpense = function (state, limits, value, description, user = 'jonas') {
+  const cleanUser = user.toLowerCase();
+  return value <= getLimit(cleanUser) ? [...state, { value: -value, description, user: cleanUser }] : state;
+  // budget.push({ value: -value, description, user: cleanUser });
 };
-addExpense(10, 'Pizza 🍕');
-addExpense(100, 'Going to movies 🍿', 'Matilda');
-addExpense(200, 'Stuff', 'Jay');
+const newBudget1 = addExpense(budget, spendingLimit, 10, 'Pizza 🍕');
+const newBudget2 = addExpense(newBudget1, spendingLimit, 100, 'Going to movies 🍿', 'Matilda');
+const newBudget3 = addExpense(newBudget2, spendingLimit, 200, 'Stuff', 'Jay');
 console.log(budget);
 
 const checkExpenses = function () {
