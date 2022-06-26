@@ -4,7 +4,8 @@
 // // console.log(price, tq)
 // // import { addToCart, price, totalQuantity as tq } from "./shoppingCart.js";
 
-import { cart } from "./shoppingCart.mjs"
+
+// import { cart } from "./shoppingCart.mjs"
 
 // const { CardTravel } = require("@material-ui/icons");
 
@@ -19,10 +20,10 @@ import { cart } from "./shoppingCart.mjs"
 
 
 // // import are not copy of the exports they are like live connections => they point to the same place in memory
-// import add, { cart } from './shoppingCart.mjs'
-// add('pizza', 2)
-// add('coffee', 4)
-// add('tea', 3)
+import add, { cart } from './shoppingCart.mjs'
+add('pizza', 2)
+add('coffee', 4)
+add('tea', 3)
 
 
 // console.log(cart)
@@ -77,3 +78,22 @@ import { cart } from "./shoppingCart.mjs"
 // }
 // CommonJS specification "require"
 // const {addToCart} = require('./shoppingCart.mjs')
+
+//! Importing lodash 
+import cloneDeep from "./node_modules/lodash-es/cloneDeep.js"
+// const cloneDeep = require('./node_modules/lodash-/_copyObject.jsdeep codeep cop')
+const state = {
+    cart: [
+        { product: 'bread', quantity: 5 },
+        { product: 'pizza', quantity: 5 },
+    ],
+    user: { loggedIn: true },
+}
+const stateClone = Object.assign({}, state);
+const stateDeepClone = cloneDeep(state);
+
+state.user.loggedIn = false;
+
+console.log(stateClone);
+console.log('deep clone', stateDeepClone);
+
