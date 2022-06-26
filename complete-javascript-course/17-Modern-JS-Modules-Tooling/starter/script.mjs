@@ -4,6 +4,8 @@
 // // console.log(price, tq)
 // // import { addToCart, price, totalQuantity as tq } from "./shoppingCart.js";
 
+import { cart } from "./shoppingCart.mjs"
+
 // const { CardTravel } = require("@material-ui/icons");
 
 // import * as ShoppingCart from './shoppingCart.mjs'
@@ -43,27 +45,35 @@
 // const lastPost2 = await getLastPost();
 // console.log(lastPost2)
 
-const ShoppingCart2 = (function () {
-    const cart = [];
-    const shippingCost = 10;
-    const totalPrice = 237;
-    const totalQuantity = 23;
+// const ShoppingCart2 = (function () {
+//     const cart = [];
+//     const shippingCost = 10;
+//     const totalPrice = 237;
+//     const totalQuantity = 23;
 
-    const addToCart = function (product, quantity) {
-        cart.push({ product, quantity });
-        console.log(`${quantity} ${product} added to cart SHIPPING COST IST ${shippingCost}`);
-    };
+//     const addToCart = function (product, quantity) {
+//         cart.push({ product, quantity });
+//         console.log(`${quantity} ${product} added to cart SHIPPING COST IST ${shippingCost}`);
+//     };
 
-    const orderStock = function (product, quantity) {
-        console.log(`${quantity} ${product} order from supplier`)
-    };
+//     const orderStock = function (product, quantity) {
+//         console.log(`${quantity} ${product} order from supplier`)
+//     };
 
-    return {
-        addToCart,
-        cart,
-        totalPrice,
-        totalQuantity,
-    }
-})();
-ShoppingCart2.addToCart('apple', 4);
-ShoppingCart2.addToCart('pizza', 2);
+//     return {
+//         addToCart,
+//         cart,
+//         totalPrice,
+//         totalQuantity,
+//     }
+// })();
+// ShoppingCart2.addToCart('apple', 4);
+// ShoppingCart2.addToCart('pizza', 2);
+
+//Export 
+// export.addToCart = function (product, quantity) {
+//     cart.push({ product, quantity });
+//     console.log(`${quantity} ${product} added to cart (shipping) cost is ${shippingCost}`);
+// }
+// CommonJS specification "require"
+// const {addToCart} = require('./shoppingCart.mjs')

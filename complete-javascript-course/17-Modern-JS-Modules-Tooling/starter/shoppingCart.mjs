@@ -4,9 +4,9 @@ console.log("Exporting module")
 export const cart = [];
 
 // Blocking code
-console.log('Start fetching users');
-await fetch('https://jsonplaceholder.typeicode.com/users');
-console.log('Finish fetching users');
+// console.log('Start fetching users');
+// await fetch('https://jsonplaceholder.typeicode.com/users');
+// console.log('Finish fetching users');
 
 // export const addToCart = function (product, quantity) {
 //     cart.push({ product, quantity });
