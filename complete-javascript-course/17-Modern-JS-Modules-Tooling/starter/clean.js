@@ -1,4 +1,5 @@
-const budget = [
+'strict mode'
+const budget = Object.freeze([
   { value: 250, description: 'Sold old TV 📺', user: 'jonas' },
   { value: -45, description: 'Groceries 🥑', user: 'jonas' },
   { value: 3500, description: 'Monthly salary 👩‍💻', user: 'jonas' },
@@ -7,18 +8,19 @@ const budget = [
   { value: -20, description: 'Candy 🍭', user: 'matilda' },
   { value: -125, description: 'Toys 🚂', user: 'matilda' },
   { value: -1800, description: 'New Laptop 💻', user: 'jonas' },
-];
-
-const spendingLimits = {
+]);
+// Object.freeze makes the object immutable on the first lvl
+const spendingLimits = Object.freeze({
   jonas: 1500,
   matilda: 100,
-};
+});
 const getLimit = user => spendingLimits?.[user] ?? 0;
 const addExpense = function (value, description, user = 'jonas') {
   user = user.toLowerCase();
   // const limit = spendingLimits[user] ? spendingLimits[user] : 0;
-  const limit = getLimit(user);
-  if (value <= limit) {
+
+  //function that mutated an object is impure function
+  if (value <= getLimit(user)) {
     budget.push({ value: -value, description, user });
   }
 };
